@@ -3,8 +3,7 @@
 const express = require("express");
 const app = express();
 
-// define endpoint for exercise 1 here
-
+// 1.1
 app.get("/math/circle/:r", (req, res) => {
   const r = parseFloat(req.params.r);
 
@@ -19,6 +18,7 @@ app.get("/math/circle/:r", (req, res) => {
   res.json(result);
 });
 
+// 1.2
 app.get("/math/rectangle/:width/:height", (req, res) => {
   const width = parseFloat(req.params.width);
   const height = parseFloat(req.params.height);
@@ -33,7 +33,33 @@ app.get("/math/rectangle/:width/:height", (req, res) => {
   res.json(result);
 });
 
-//TODO3
+// 1.3
+app.get("/math/power/:base/:exponent/:root?", (req, res) => {
+  const base = parseFloat(req.params.base);
+  const exponent = parseFloat(req.params.exponent);
+  const root = req.query.root === "true";
+  var result;
+
+  if (isNaN(base) || isNaN(exponent)) {
+    result = {
+      error: "Invalid input",
+    };
+    res.status(400).json(result);
+    return;
+  }
+
+  if (root) {
+    result = {
+      result: Math.pow(base, exponent),
+      root: Math.pow(base, 1 / exponent),
+    };
+  } else {
+    result = {
+      result: Math.pow(base, exponent),
+    };
+  }
+  res.json(result);
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
