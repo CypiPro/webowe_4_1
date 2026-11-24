@@ -19,7 +19,19 @@ app.get("/math/circle/:r", (req, res) => {
   res.json(result);
 });
 
-//TODO2
+app.get("/math/rectangle/:width/:height", (req, res) => {
+  const width = parseFloat(req.params.width);
+  const height = parseFloat(req.params.height);
+
+  const area = (width * height).toFixed(2);
+  const perimeter = (2 * width + 2 * height).toFixed(2);
+
+  const result = {
+    area: area,
+    perimeter: perimeter,
+  };
+  res.json(result);
+});
 
 //TODO3
 
